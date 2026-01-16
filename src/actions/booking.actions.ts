@@ -3,13 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { requireAuth, requireAdmin } from "@/lib/auth";
 import {
-  createBooking,
   updateBookingStatus,
   cancelBooking,
 } from "@/services/booking.service";
-import { bookingSchema, bookingStatusUpdateSchema } from "@/lib/validations";
-import type { BookingStatus, TripType } from "@prisma/client";
-import type { ParticipantFormData } from "@/types";
+import { bookingStatusUpdateSchema } from "@/lib/validations";
+import type { BookingStatus } from "@prisma/client";
 
 export type BookingActionState = {
   error?: string;
@@ -18,39 +16,8 @@ export type BookingActionState = {
   bookingCode?: string;
 };
 
-export async function createBookingAction(data: {
-  departureId: string;
-  departureGroupId?: string;
-  tripType: TripType;
-  participants: ParticipantFormData[];
-  notes?: string;
-}): Promise<BookingActionState> {
-  try {
-    const user = await requireAuth();
-
-    const booking = await createBooking({
-      userId: user.id,
-      departureId: data.departureId,
-      departureGroupId: data.departureGroupId,
-      tripType: data.tripType,
-      participants: data.participants,
-      notes: data.notes,
-    });
-
-    revalidatePath("/dashboard/bookings");
-
-    return {
-      success: true,
-      bookingId: booking.id,
-      bookingCode: booking.bookingCode,
-    };
-  } catch (error) {
-    if (error instanceof Error) {
-      return { error: error.message };
-    }
-    return { error: "Failed to create booking" };
-  }
-}
+// Note: createBooking is handled via API route /api/bookings
+// because it needs to handle participant creation inline
 
 export async function updateBookingStatusAction(
   bookingId: string,
@@ -89,6 +56,26 @@ export async function cancelBookingAction(
 
     revalidatePath("/dashboard/bookings");
     revalidatePath(`/dashboard/bookings/${bookingId}`);
+
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
+    return { error: "Failed to cancel booking" };
+  }
+}
+
+export async function adminCancelBookingAction(
+  bookingId: string
+): Promise<BookingActionState> {
+  try {
+    await requireAdmin();
+
+    await cancelBooking(bookingId);
+
+    revalidatePath("/admin/bookings");
+    revalidatePath(`/admin/bookings/${bookingId}`);
 
     return { success: true };
   } catch (error) {
