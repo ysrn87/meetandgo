@@ -168,3 +168,51 @@ export async function expireOverdueBookings(): Promise<number> {
 
   return result.count;
 }
+
+export async function cancelBooking(id: string, userId?: string): Promise<BookingWithRelations> {
+  const booking = await prisma.booking.findUnique({
+    where: { id },
+    include: { departureGroup: true },
+  });
+
+  if (!booking) throw new Error("Booking not found");
+  
+  // If userId provided, verify ownership (for customer cancellation)
+  if (userId && booking.userId !== userId) {
+    throw new Error("You can only cancel your own bookings");
+  }
+
+  // Only PENDING bookings can be cancelled by customer
+  if (userId && booking.status !== "PENDING") {
+    throw new Error("Only pending bookings can be cancelled");
+  }
+
+  // Admin can cancel PENDING or PAYMENT_RECEIVED bookings
+  if (!userId && !["PENDING", "PAYMENT_RECEIVED"].includes(booking.status)) {
+    throw new Error("Cannot cancel booking with status: " + booking.status);
+  }
+
+  return prisma.$transaction(async (tx) => {
+    // Update booking status
+    const updatedBooking = await tx.booking.update({
+      where: { id },
+      data: { status: "CANCELLED" },
+      include: {
+        user: { select: { id: true, name: true, email: true, phone: true } },
+        departure: { include: { tourPackage: { select: { id: true, title: true, slug: true, thumbnail: true, location: true } } } },
+        departureGroup: true,
+        participants: { include: { participant: true } },
+      },
+    });
+
+    // Release the group if it was a private trip
+    if (booking.departureGroupId) {
+      await tx.departureGroup.update({
+        where: { id: booking.departureGroupId },
+        data: { isBooked: false },
+      });
+    }
+
+    return updatedBooking;
+  });
+}
