@@ -21,14 +21,14 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-const STATUS_CONFIG: Record<string, { label: string; variant: "default" | "success" | "warning" | "error" | "info" }> = {
+const STATUS_CONFIG: Record<string, { label: string; variant: "default" | "success" | "warning" }> = {
   PENDING: { label: "Pending Payment", variant: "warning" },
-  PAYMENT_RECEIVED: { label: "Payment Received", variant: "info" },
-  PROCESSED: { label: "Processed", variant: "info" },
+  PAYMENT_RECEIVED: { label: "Payment Received", variant: "success" },
+  PROCESSED: { label: "Processed", variant: "success" },
   ONGOING: { label: "Ongoing", variant: "success" },
   COMPLETED: { label: "Completed", variant: "success" },
-  CANCELLED: { label: "Cancelled", variant: "error" },
-  EXPIRED: { label: "Expired", variant: "error" },
+  CANCELLED: { label: "Cancelled", variant: "default" },
+  EXPIRED: { label: "Expired", variant: "default" },
 };
 
 interface PageProps {
