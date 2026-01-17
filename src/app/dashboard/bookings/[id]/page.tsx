@@ -52,7 +52,7 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
       {isPending && !isExpired && (
         <Card variant="bordered" className="border-amber-200 bg-amber-50">
           <CardContent className="flex items-start gap-4">
-            <AlertTriangle className="w-6 h-6 text-amber-500 flex-shrink-0" />
+            <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0" />
             <div>
               <h3 className="font-semibold text-amber-800">Payment Required</h3>
               <p className="text-amber-700">Please complete your payment within <strong>{getTimeRemaining(booking.paymentDeadline)}</strong> to confirm your booking.</p>
@@ -65,7 +65,7 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
       {isExpired && (
         <Card variant="bordered" className="border-red-200 bg-red-50">
           <CardContent className="flex items-start gap-4">
-            <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0" />
+            <AlertTriangle className="w-6 h-6 text-red-500 shrink-0" />
             <div>
               <h3 className="font-semibold text-red-800">Booking Expired</h3>
               <p className="text-red-700">Your payment deadline has passed. Please create a new booking.</p>
@@ -77,7 +77,7 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
       {booking.status === "PAYMENT_RECEIVED" && (
         <Card variant="bordered" className="border-emerald-200 bg-emerald-50">
           <CardContent className="flex items-start gap-4">
-            <CheckCircle className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+            <CheckCircle className="w-6 h-6 text-emerald-500 shrink-0" />
             <div>
               <h3 className="font-semibold text-emerald-800">Payment Confirmed</h3>
               <p className="text-emerald-700">Thank you! Your payment has been received. We're processing your booking.</p>
@@ -91,7 +91,7 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
         <CardHeader><CardTitle className="flex items-center gap-2"><MapPin className="w-5 h-5" /> Trip Details</CardTitle></CardHeader>
         <CardContent>
           <div className="flex gap-4">
-            <div className="w-24 h-24 rounded-lg bg-slate-100 overflow-hidden flex-shrink-0">
+            <div className="w-24 h-24 rounded-lg bg-slate-100 overflow-hidden shrink-0">
               {pkg.thumbnail ? (
                 <img src={pkg.thumbnail} alt={pkg.title} className="w-full h-full object-cover" />
               ) : (

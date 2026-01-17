@@ -53,15 +53,15 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm">
-                <MapPin className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
                 <span>Jl. Sudirman No. 123, Jakarta Pusat, Indonesia</span>
               </li>
               <li className="flex items-center gap-3 text-sm">
-                <Phone className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                <Phone className="w-5 h-5 text-emerald-500 shrink-0" />
                 <a href="tel:+6281234567890" className="hover:text-emerald-400 transition-colors">+62 812-3456-7890</a>
               </li>
               <li className="flex items-center gap-3 text-sm">
-                <Mail className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                <Mail className="w-5 h-5 text-emerald-500 shrink-0" />
                 <a href="mailto:hello@meetandgo.id" className="hover:text-emerald-400 transition-colors">hello@meetandgo.id</a>
               </li>
             </ul>

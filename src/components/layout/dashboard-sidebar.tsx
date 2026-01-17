@@ -68,7 +68,7 @@ export function DashboardSidebar({ isAdmin = false, isOpen, onToggle }: SidebarP
               !isOpen && "lg:justify-center"
             )}
           >
-            <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 32 32" fill="none">
+            <svg className="w-8 h-8 shrink-0" viewBox="0 0 32 32" fill="none">
               <circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.1" />
               <path d="M16 6L20 14H12L16 6Z" fill="currentColor" />
               <circle cx="16" cy="20" r="4" fill="currentColor" />
@@ -104,7 +104,7 @@ export function DashboardSidebar({ isAdmin = false, isOpen, onToggle }: SidebarP
                 )}
                 title={!isOpen ? link.label : undefined}
               >
-                <link.icon className="w-5 h-5 flex-shrink-0" />
+                <link.icon className="w-5 h-5 shrink-0" />
                 {(isOpen || typeof window !== "undefined" && window.innerWidth < 1024) && (
                   <span>{link.label}</span>
                 )}

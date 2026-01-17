@@ -97,3 +97,32 @@ export async function updateCustomRequestStatus(id: string, data: { status: Cust
     });
   });
 }
+
+export async function cancelCustomRequest(id: string, userId?: string): Promise<CustomRequestWithRelations> {
+  const request = await prisma.customTourRequest.findUnique({ where: { id } });
+  if (!request) throw new Error("Request not found");
+
+  // If userId provided, verify ownership
+  if (userId && request.userId !== userId) {
+    throw new Error("You can only cancel your own requests");
+  }
+
+  // Only PENDING or IN_REVIEW requests can be cancelled by customer
+  if (userId && !["PENDING", "IN_REVIEW"].includes(request.status)) {
+    throw new Error("Only pending or in-review requests can be cancelled");
+  }
+
+  // Admin can cancel any non-completed request
+  if (!userId && ["COMPLETED", "CANCELLED", "REJECTED"].includes(request.status)) {
+    throw new Error("Cannot cancel request with status: " + request.status);
+  }
+
+  return prisma.customTourRequest.update({
+    where: { id },
+    data: { status: "CANCELLED" },
+    include: {
+      user: { select: { id: true, name: true, email: true, phone: true } },
+      tourGuide: { select: { id: true, name: true, email: true, phone: true } },
+    },
+  });
+}

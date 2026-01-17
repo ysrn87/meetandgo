@@ -262,7 +262,7 @@ export default function NewBookingPage() {
 
   if (status === "loading" || loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-100">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
       </div>
     );
@@ -297,7 +297,7 @@ export default function NewBookingPage() {
         {/* Package Summary */}
         <Card variant="bordered">
           <CardContent className="flex gap-4">
-            <div className="w-24 h-24 rounded-lg bg-slate-100 overflow-hidden flex-shrink-0">
+            <div className="w-24 h-24 rounded-lg bg-slate-100 overflow-hidden shrink-0">
               {packageData.thumbnail ? (
                 <img src={packageData.thumbnail} alt={packageData.title} className="w-full h-full object-cover" />
               ) : (

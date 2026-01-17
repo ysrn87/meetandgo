@@ -56,7 +56,7 @@ export function Alert({
       )}
       {...props}
     >
-      <Icon className={cn("h-5 w-5 flex-shrink-0 mt-0.5", iconStyles[variant])} />
+      <Icon className={cn("h-5 w-5 shrink-0 mt-0.5", iconStyles[variant])} />
       <div className="flex-1">
         {title && <h5 className="font-medium mb-1">{title}</h5>}
         <div className="text-sm">{children}</div>
@@ -64,7 +64,7 @@ export function Alert({
       {onClose && (
         <button
           onClick={onClose}
-          className="flex-shrink-0 rounded-md p-1 hover:bg-black/5 transition-colors"
+          className="shrink-0 rounded-md p-1 hover:bg-black/5 transition-colors"
           aria-label="Close alert"
         >
           <X className="h-4 w-4" />

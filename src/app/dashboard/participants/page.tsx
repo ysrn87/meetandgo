@@ -160,7 +160,7 @@ export default function ParticipantsPage() {
 
   if (status === "loading" || loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-100">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
       </div>
     );
@@ -185,7 +185,7 @@ export default function ParticipantsPage() {
             <Card key={p.id} variant="bordered">
               <CardContent className="flex items-start justify-between">
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
                     <User className="w-6 h-6 text-emerald-600" />
                   </div>
                   <div>

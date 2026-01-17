@@ -41,7 +41,7 @@
 @layer utilities {
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .gradient-text { @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-500; }
+  .gradient-text { @apply bg-clip-text text-transparent bg-linear-to-r from-emerald-600 to-teal-500; }
   .aspect-thumbnail { aspect-ratio: 4/3; }
   .aspect-hero { aspect-ratio: 16/9; }
 }

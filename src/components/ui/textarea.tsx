@@ -31,7 +31,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             "transition-colors duration-200",
             "focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none",
             "disabled:bg-slate-50 disabled:text-slate-500 disabled:cursor-not-allowed",
-            "resize-y min-h-[100px]",
+            "resize-y min-h-25",
             error && "border-red-500 focus:border-red-500 focus:ring-red-500/20",
             className
           )}

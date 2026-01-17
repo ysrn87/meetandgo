@@ -22,13 +22,19 @@ export function CustomRequestStatusForm({ requestId, currentStatus, currentEstim
   const currentIndex = CUSTOM_REQUEST_STATUS_FLOW.indexOf(currentStatus as typeof CUSTOM_REQUEST_STATUS_FLOW[number]);
   const nextStatuses = CUSTOM_REQUEST_STATUS_FLOW.slice(currentIndex + 1);
 
-  const [form, setForm] = useState({
-    status: nextStatuses[0] || currentStatus,
-    estimatedPrice: currentEstimatedPrice || 0,
-    finalPrice: currentFinalPrice || 0,
-    tourGuideId: currentTourGuideId || "",
-    adminNotes: "",
-  });
+  const [form, setForm] = useState<{
+  status: string;
+  estimatedPrice: number;
+  finalPrice: number;
+  tourGuideId: string;
+  adminNotes: string;
+}>({
+  status: nextStatuses[0] || currentStatus,
+  estimatedPrice: currentEstimatedPrice || 0,
+  finalPrice: currentFinalPrice || 0,
+  tourGuideId: currentTourGuideId || "",
+  adminNotes: "",
+});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

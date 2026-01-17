@@ -156,8 +156,9 @@ export type TourPackageFormData = {
   description: string;
   duration: string;
   durationDays: number;
-  thumbnail?: string;
+  thumbnail?: string | null;
   images?: string[];
+  isActive?: boolean;
   highlights: HighlightFormData[];
   itineraries: ItineraryFormData[];
   includedItems: string[];

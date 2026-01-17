@@ -18,7 +18,7 @@ export function BookingStatusForm({ bookingId, currentStatus }: BookingStatusFor
   const currentIndex = BOOKING_STATUS_FLOW.indexOf(currentStatus as typeof BOOKING_STATUS_FLOW[number]);
   const nextStatuses = BOOKING_STATUS_FLOW.slice(currentIndex + 1);
 
-  const [newStatus, setNewStatus] = useState(nextStatuses[0] || "");
+  const [newStatus, setNewStatus] = useState<string>(nextStatuses[0] || "");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +62,7 @@ export function BookingStatusForm({ bookingId, currentStatus }: BookingStatusFor
       <Select
         label="New Status"
         value={newStatus}
-        onChange={(e) => setNewStatus(e.target.value)}
+        onChange={(e) => setNewStatus(e.target.value as string)}
         options={nextStatuses.map((status) => ({
           value: status,
           label: BOOKING_STATUS_LABELS[status],

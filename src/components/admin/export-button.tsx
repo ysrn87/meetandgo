@@ -67,7 +67,7 @@ export function ExportButton({ data, filename }: ExportButtonProps) {
         <Download className="w-4 h-4" />
         Export
       </Button>
-      <div className="absolute right-0 mt-1 bg-white rounded-lg shadow-lg border border-slate-200 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 min-w-[120px]">
+      <div className="absolute right-0 mt-1 bg-white rounded-lg shadow-lg border border-slate-200 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 min-w-30">
         <button
           onClick={exportToCSV}
           className="w-full px-4 py-2 text-left text-sm hover:bg-slate-50"

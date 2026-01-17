@@ -34,11 +34,11 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Hero Image */}
-            <div className="relative h-[400px] rounded-2xl overflow-hidden">
+            <div className="relative h-100 rounded-2xl overflow-hidden">
               {pkg.thumbnail ? (
                 <Image src={pkg.thumbnail} alt={pkg.title} fill className="object-cover" priority />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-emerald-400 to-teal-500" />
+                <div className="w-full h-full bg-linear-to-br from-emerald-400 to-teal-500" />
               )}
               <div className="absolute top-4 left-4"><TripTypeBadge type={pkg.tripType} /></div>
             </div>
@@ -66,7 +66,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
                   {pkg.highlights.map((h) => (
                     <div key={h.id} className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl">
                       {h.image && (
-                        <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                        <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0">
                           <Image src={h.image} alt={h.title} fill className="object-cover" />
                         </div>
                       )}
@@ -91,7 +91,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
                       <div className="space-y-2">
                         {day.activities.map((act) => (
                           <div key={act.id} className="flex gap-4 text-sm">
-                            <span className="text-slate-500 font-mono w-24 flex-shrink-0">{act.startTime} - {act.endTime}</span>
+                            <span className="text-slate-500 font-mono w-24 shrink-0">{act.startTime} - {act.endTime}</span>
                             <div>
                               <p className="font-medium">{act.activity}</p>
                               {act.description && <p className="text-slate-500">{act.description}</p>}
@@ -142,7 +142,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
                 <div className="space-y-3">
                   {pkg.meetingPoints.map((mp) => (
                     <div key={mp.id} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
-                      <MapPin className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <MapPin className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
                         <p className="font-medium">{mp.name}</p>
                         {mp.address && <p className="text-sm text-slate-500">{mp.address}</p>}
@@ -163,7 +163,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
               {pkg.departures.length > 0 ? (
                 <div className="space-y-4">
                   <h3 className="text-sm font-medium text-slate-500">Available Dates</h3>
-                  <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                  <div className="space-y-3 max-h-75 overflow-y-auto">
                     {pkg.departures.map((dep) => {
                       const bookedCount = dep._count?.bookings || 0;
                       const maxSeats = dep.maxParticipants || 0;

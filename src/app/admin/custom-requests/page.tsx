@@ -91,7 +91,7 @@ export default async function AdminCustomRequestsPage({ searchParams }: { search
 
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[900px]">
+          <table className="w-full min-w-225">
             <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
                 <th className="text-left px-6 py-4 text-xs font-medium text-slate-500 uppercase">Request</th>

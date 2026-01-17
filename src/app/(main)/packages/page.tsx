@@ -134,7 +134,7 @@ export default async function PackagesPage({ searchParams }: { searchParams: Pro
                   {pkg.thumbnail ? (
                     <Image src={pkg.thumbnail} alt={pkg.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-emerald-400 to-teal-500" />
+                    <div className="w-full h-full bg-linear-to-br from-emerald-400 to-teal-500" />
                   )}
                   <div className="absolute top-4 left-4"><TripTypeBadge type={pkg.tripType} /></div>
                 </div>

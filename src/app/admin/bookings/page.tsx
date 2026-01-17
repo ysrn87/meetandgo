@@ -95,7 +95,7 @@ export default async function AdminBookingsPage({ searchParams }: { searchParams
 
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[800px]">
+          <table className="w-full min-w-200">
             <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
                 <th className="text-left px-6 py-4 text-xs font-medium text-slate-500 uppercase">Booking</th>

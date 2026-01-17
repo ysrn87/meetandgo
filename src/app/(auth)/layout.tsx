@@ -4,7 +4,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="min-h-screen flex">
       {/* Left side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-emerald-600 to-teal-700 p-12 flex-col justify-between">
+      <div className="hidden lg:flex lg:w-1/2 bg-linear-to-br from-emerald-600 to-teal-700 p-12 flex-col justify-between">
         <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-white">
           <svg className="w-10 h-10" viewBox="0 0 32 32" fill="none">
             <circle cx="16" cy="16" r="14" fill="white" opacity="0.2" />

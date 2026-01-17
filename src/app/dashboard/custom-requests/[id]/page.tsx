@@ -48,7 +48,7 @@ export default async function CustomerRequestDetailPage({ params }: { params: Pr
       {isPending && (
         <Card variant="bordered" className="border-blue-200 bg-blue-50">
           <CardContent className="flex items-start gap-4">
-            <Clock className="w-6 h-6 text-blue-500 flex-shrink-0" />
+            <Clock className="w-6 h-6 text-blue-500 shrink-0" />
             <div>
               <h3 className="font-semibold text-blue-800">Request Submitted</h3>
               <p className="text-blue-700">Your request is being reviewed by our team. We'll get back to you with a quote soon.</p>
@@ -60,7 +60,7 @@ export default async function CustomerRequestDetailPage({ params }: { params: Pr
       {isInReview && request.estimatedPrice && (
         <Card variant="bordered" className="border-amber-200 bg-amber-50">
           <CardContent className="flex items-start gap-4">
-            <AlertTriangle className="w-6 h-6 text-amber-500 flex-shrink-0" />
+            <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0" />
             <div>
               <h3 className="font-semibold text-amber-800">Quote Available</h3>
               <p className="text-amber-700">Our estimated price for your trip is <strong>{formatPrice(Number(request.estimatedPrice))}</strong>. This may change as we finalize details.</p>
@@ -72,7 +72,7 @@ export default async function CustomerRequestDetailPage({ params }: { params: Pr
       {isAccepted && request.finalPrice && (
         <Card variant="bordered" className="border-emerald-200 bg-emerald-50">
           <CardContent className="flex items-start gap-4">
-            <CheckCircle className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+            <CheckCircle className="w-6 h-6 text-emerald-500 shrink-0" />
             <div>
               <h3 className="font-semibold text-emerald-800">Ready to Book!</h3>
               <p className="text-emerald-700">Your custom tour has been confirmed at <strong>{formatPrice(Number(request.finalPrice))}</strong>. Please proceed with payment to secure your trip.</p>
@@ -85,7 +85,7 @@ export default async function CustomerRequestDetailPage({ params }: { params: Pr
       {isRejected && (
         <Card variant="bordered" className="border-red-200 bg-red-50">
           <CardContent className="flex items-start gap-4">
-            <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0" />
+            <AlertTriangle className="w-6 h-6 text-red-500 shrink-0" />
             <div>
               <h3 className="font-semibold text-red-800">Request Declined</h3>
               <p className="text-red-700">Unfortunately, we're unable to accommodate this request. Please contact us for more details or submit a new request.</p>

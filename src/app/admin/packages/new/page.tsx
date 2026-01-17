@@ -309,7 +309,7 @@ export default function NewPackagePage() {
                       <Input className="w-24" type="time" value={act.startTime} onChange={e => { const u = [...itineraries]; u[dayIdx].activities[actIdx].startTime = e.target.value; setItineraries(u); }} />
                       <span className="text-slate-400">-</span>
                       <Input className="w-24" type="time" value={act.endTime} onChange={e => { const u = [...itineraries]; u[dayIdx].activities[actIdx].endTime = e.target.value; setItineraries(u); }} />
-                      <Input className="flex-1 min-w-[200px]" placeholder="Activity *" value={act.activity} onChange={e => { const u = [...itineraries]; u[dayIdx].activities[actIdx].activity = e.target.value; setItineraries(u); }} />
+                      <Input className="flex-1 min-w-50" placeholder="Activity *" value={act.activity} onChange={e => { const u = [...itineraries]; u[dayIdx].activities[actIdx].activity = e.target.value; setItineraries(u); }} />
                       {it.activities.length > 1 && <button type="button" onClick={() => removeActivity(dayIdx, actIdx)} className="p-2 text-red-500 hover:bg-red-50 rounded"><Trash2 className="w-4 h-4" /></button>}
                     </div>
                   ))}
@@ -381,8 +381,8 @@ export default function NewPackagePage() {
           <CardContent className="space-y-3">
             {meetingPoints.map((mp, i) => (
               <div key={i} className="flex gap-4 items-center p-3 bg-slate-50 rounded-lg flex-wrap">
-                <Input className="flex-1 min-w-[150px]" placeholder="Meeting point name *" value={mp.name} onChange={e => { const u = [...meetingPoints]; u[i].name = e.target.value; setMeetingPoints(u); }} />
-                <Input className="flex-1 min-w-[150px]" placeholder="Address (optional)" value={mp.address} onChange={e => { const u = [...meetingPoints]; u[i].address = e.target.value; setMeetingPoints(u); }} />
+                <Input className="flex-1 min-w-37.5" placeholder="Meeting point name *" value={mp.name} onChange={e => { const u = [...meetingPoints]; u[i].name = e.target.value; setMeetingPoints(u); }} />
+                <Input className="flex-1 min-w-37.5" placeholder="Address (optional)" value={mp.address} onChange={e => { const u = [...meetingPoints]; u[i].address = e.target.value; setMeetingPoints(u); }} />
                 <Input className="w-28" type="time" placeholder="Time" value={mp.time} onChange={e => { const u = [...meetingPoints]; u[i].time = e.target.value; setMeetingPoints(u); }} />
                 {meetingPoints.length > 1 && <button type="button" onClick={() => setMeetingPoints(meetingPoints.filter((_, idx) => idx !== i))} className="p-2 text-red-500 hover:bg-red-50 rounded"><Trash2 className="w-4 h-4" /></button>}
               </div>
@@ -408,7 +408,7 @@ export default function NewPackagePage() {
               <div key={depIdx} className="p-4 bg-slate-50 rounded-lg space-y-4">
                 <div className="flex gap-4 items-end flex-wrap">
                   <Input 
-                    className="flex-1 min-w-[200px]" 
+                    className="flex-1 min-w-50" 
                     label="Departure Date *" 
                     type="date" 
                     required 

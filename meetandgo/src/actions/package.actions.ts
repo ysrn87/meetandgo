@@ -6,7 +6,7 @@ import {
   createPackage,
   updatePackage,
   deletePackage,
-  addDeparture,
+  addDeparture, 
   togglePackageStatus,
 } from "@/services/package.service";
 import type { TourPackageFormData, DepartureFormData } from "@/types";

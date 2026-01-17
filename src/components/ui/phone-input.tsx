@@ -45,7 +45,7 @@ export function PhoneInput({
     return value.replace(/^\+?\d{2,3}/, "");
   };
 
-  const [countryCode, setCountryCode] = useState(getInitialCountryCode);
+  const [countryCode, setCountryCode] = useState<string>(getInitialCountryCode);
   const [number, setNumber] = useState(getInitialNumber);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export function PhoneInput({
       <div className="flex">
         <select
           value={countryCode}
-          onChange={(e) => setCountryCode(e.target.value)}
+          onChange={(e) => setCountryCode(e.target.value as string)}
           disabled={disabled}
           className="px-3 py-2.5 rounded-l-lg border border-r-0 border-slate-200 bg-slate-50 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
         >

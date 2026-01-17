@@ -165,3 +165,54 @@ export async function addDeparture(packageId: string, data: { departureDate: str
     include: { groups: { orderBy: { groupNumber: "asc" } } },
   });
 }
+
+export async function updatePackage(id: string, data: Partial<TourPackageFormData>): Promise<TourPackageWithRelations> {
+  const existing = await prisma.tourPackage.findUnique({ where: { id } });
+  if (!existing) throw new Error("Package not found");
+
+  // Generate new slug if title changed
+  let slug = existing.slug;
+  if (data.title && data.title !== existing.title) {
+    slug = slugify(data.title);
+    const slugExists = await prisma.tourPackage.findFirst({ where: { slug, id: { not: id } } });
+    if (slugExists) slug = `${slug}-${Date.now()}`;
+  }
+
+  return prisma.tourPackage.update({
+    where: { id },
+    data: {
+      ...(data.title && { title: data.title, slug }),
+      ...(data.tripType && { tripType: data.tripType }),
+      ...(data.location && { location: data.location }),
+      ...(data.description && { description: data.description }),
+      ...(data.duration && { duration: data.duration }),
+      ...(data.durationDays && { durationDays: data.durationDays }),
+      ...(data.thumbnail !== undefined && { thumbnail: data.thumbnail }),
+      ...(data.images && { images: data.images }),
+      ...(data.isActive !== undefined && { isActive: data.isActive }),
+    },
+    include: {
+      highlights: { orderBy: { order: "asc" } },
+      itineraries: { orderBy: { day: "asc" }, include: { activities: { orderBy: { order: "asc" } } } },
+      includedItems: { orderBy: { order: "asc" } },
+      excludedItems: { orderBy: { order: "asc" } },
+      meetingPoints: { orderBy: { order: "asc" } },
+      departures: { orderBy: { departureDate: "asc" }, include: { groups: { orderBy: { groupNumber: "asc" } }, _count: { select: { bookings: true } } } },
+    },
+  });
+}
+
+export async function togglePackageStatus(id: string, isActive: boolean): Promise<TourPackageWithRelations> {
+  return prisma.tourPackage.update({
+    where: { id },
+    data: { isActive },
+    include: {
+      highlights: { orderBy: { order: "asc" } },
+      itineraries: { orderBy: { day: "asc" }, include: { activities: { orderBy: { order: "asc" } } } },
+      includedItems: { orderBy: { order: "asc" } },
+      excludedItems: { orderBy: { order: "asc" } },
+      meetingPoints: { orderBy: { order: "asc" } },
+      departures: { orderBy: { departureDate: "asc" }, include: { groups: { orderBy: { groupNumber: "asc" } }, _count: { select: { bookings: true } } } },
+    },
+  });
+}
