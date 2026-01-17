@@ -113,9 +113,9 @@ export default function NewPackagePage() {
       const payload = {
         ...form,
         highlights: highlights.filter(h => h.title.trim()).map((h, i) => ({ ...h, order: i })),
-        itineraries: itineraries.map(it => ({ 
-          ...it, 
-          activities: it.activities.filter(a => a.activity.trim()).map((a, i) => ({ ...a, order: i })) 
+        itineraries: itineraries.map(it => ({
+          ...it,
+          activities: it.activities.filter(a => a.activity.trim()).map((a, i) => ({ ...a, order: i }))
         })).filter(it => it.activities.length > 0),
         includedItems: includedItems.filter(i => i.trim()),
         excludedItems: excludedItems.filter(i => i.trim()),
@@ -126,12 +126,12 @@ export default function NewPackagePage() {
         })),
       };
 
-      const res = await fetch("/api/admin/packages", { 
-        method: "POST", 
-        headers: { "Content-Type": "application/json" }, 
-        body: JSON.stringify(payload) 
+      const res = await fetch("/api/admin/packages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
       });
-      
+
       if (!res.ok) throw new Error((await res.json()).error || "Failed to create package");
       router.push("/admin/packages");
     } catch (err) {
@@ -159,10 +159,10 @@ export default function NewPackagePage() {
 
   const removeItinerary = (dayIdx: number) => {
     if (itineraries.length <= 1) return;
-    const updated = itineraries.filter((_, i) => i !== dayIdx).map((it, i) => ({ 
-      ...it, 
-      day: i + 1, 
-      title: it.title.startsWith("Day ") ? `Day ${i + 1}` : it.title 
+    const updated = itineraries.filter((_, i) => i !== dayIdx).map((it, i) => ({
+      ...it,
+      day: i + 1,
+      title: it.title.startsWith("Day ") ? `Day ${i + 1}` : it.title
     }));
     setItineraries(updated);
   };
@@ -229,16 +229,23 @@ export default function NewPackagePage() {
               <Select label="Trip Type" required value={form.tripType} onChange={e => setForm({ ...form, tripType: e.target.value as "OPEN_TRIP" | "PRIVATE_TRIP" })} options={[{ value: "OPEN_TRIP", label: "Open Trip (Price per Person)" }, { value: "PRIVATE_TRIP", label: "Private Trip (Price per Group)" }]} />
               <Input label="Location" required value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} placeholder="e.g., Bali, Indonesia" />
             </div>
+            <Input
+              label="Thumbnail URL"
+              value={form.thumbnail}
+              onChange={(e) => setForm({ ...form, thumbnail: e.target.value })}
+              placeholder="https://example.com/image.jpg"
+              hint="Paste an image URL (e.g., from Unsplash, Cloudinary)"
+            />
             <div className="grid md:grid-cols-2 gap-4">
               <Input label="Duration Text" required value={form.duration} onChange={e => setForm({ ...form, duration: e.target.value })} placeholder="e.g., 3 Days 2 Nights" />
-              <Input 
-                label="Duration (Days)" 
-                type="number" 
-                required 
-                min={1} 
+              <Input
+                label="Duration (Days)"
+                type="number"
+                required
+                min={1}
                 max={30}
-                value={form.durationDays} 
-                onChange={e => handleDurationDaysChange(parseInt(e.target.value) || 1)} 
+                value={form.durationDays}
+                onChange={e => handleDurationDaysChange(parseInt(e.target.value) || 1)}
                 hint="This limits the number of itinerary days"
               />
             </div>
@@ -283,10 +290,10 @@ export default function NewPackagePage() {
                 </p>
               )}
             </div>
-            <Button 
-              type="button" 
-              variant="outline" 
-              size="sm" 
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
               onClick={addItinerary}
               disabled={itineraries.length >= form.durationDays}
             >
@@ -407,30 +414,30 @@ export default function NewPackagePage() {
             {departures.map((dep, depIdx) => (
               <div key={depIdx} className="p-4 bg-slate-50 rounded-lg space-y-4">
                 <div className="flex gap-4 items-end flex-wrap">
-                  <Input 
-                    className="flex-1 min-w-50" 
-                    label="Departure Date *" 
-                    type="date" 
-                    required 
-                    value={dep.departureDate} 
-                    onChange={e => { const u = [...departures]; u[depIdx].departureDate = e.target.value; setDepartures(u); }} 
-                    min={new Date().toISOString().split("T")[0]} 
+                  <Input
+                    className="flex-1 min-w-50"
+                    label="Departure Date *"
+                    type="date"
+                    required
+                    value={dep.departureDate}
+                    onChange={e => { const u = [...departures]; u[depIdx].departureDate = e.target.value; setDepartures(u); }}
+                    min={new Date().toISOString().split("T")[0]}
                   />
                   {form.tripType === "OPEN_TRIP" ? (
                     <>
-                      <CurrencyInput 
-                        className="w-48" 
-                        label="Price/Person *" 
-                        value={dep.pricePerPerson} 
-                        onChange={val => { const u = [...departures]; u[depIdx].pricePerPerson = val; setDepartures(u); }} 
+                      <CurrencyInput
+                        className="w-48"
+                        label="Price/Person *"
+                        value={dep.pricePerPerson}
+                        onChange={val => { const u = [...departures]; u[depIdx].pricePerPerson = val; setDepartures(u); }}
                       />
-                      <Input 
-                        className="w-32" 
-                        label="Max Pax" 
-                        type="number" 
-                        min={1} 
-                        value={dep.maxParticipants} 
-                        onChange={e => { const u = [...departures]; u[depIdx].maxParticipants = parseInt(e.target.value) || 10; setDepartures(u); }} 
+                      <Input
+                        className="w-32"
+                        label="Max Pax"
+                        type="number"
+                        min={1}
+                        value={dep.maxParticipants}
+                        onChange={e => { const u = [...departures]; u[depIdx].maxParticipants = parseInt(e.target.value) || 10; setDepartures(u); }}
                       />
                     </>
                   ) : (
@@ -449,19 +456,19 @@ export default function NewPackagePage() {
                     {dep.groups.map((g, gIdx) => (
                       <div key={gIdx} className="flex gap-3 items-center bg-white p-3 rounded-lg flex-wrap">
                         <span className="text-sm font-medium text-slate-600 w-20">Group {g.groupNumber}</span>
-                        <CurrencyInput 
-                          className="w-44" 
-                          label="Price *" 
-                          value={g.price} 
-                          onChange={val => { const u = [...departures]; u[depIdx].groups[gIdx].price = val; setDepartures(u); }} 
+                        <CurrencyInput
+                          className="w-44"
+                          label="Price *"
+                          value={g.price}
+                          onChange={val => { const u = [...departures]; u[depIdx].groups[gIdx].price = val; setDepartures(u); }}
                         />
-                        <Input 
-                          className="w-28" 
-                          label="Max Pax" 
-                          type="number" 
-                          min={1} 
-                          value={g.maxParticipants} 
-                          onChange={e => { const u = [...departures]; u[depIdx].groups[gIdx].maxParticipants = parseInt(e.target.value) || 5; setDepartures(u); }} 
+                        <Input
+                          className="w-28"
+                          label="Max Pax"
+                          type="number"
+                          min={1}
+                          value={g.maxParticipants}
+                          onChange={e => { const u = [...departures]; u[depIdx].groups[gIdx].maxParticipants = parseInt(e.target.value) || 5; setDepartures(u); }}
                         />
                         <button type="button" onClick={() => removeGroup(depIdx, gIdx)} className="p-2 text-red-500 hover:bg-red-50 rounded mt-6">
                           <Trash2 className="w-4 h-4" />
