@@ -11,7 +11,6 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-2 text-xl font-bold text-white mb-4">
               <svg className="w-8 h-8 text-emerald-500" viewBox="0 0 32 32" fill="none">
                 <circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.2" />
-                <path d="M16 6L20 14H12L16 6Z" fill="currentColor" />
                 <circle cx="16" cy="20" r="4" fill="currentColor" />
               </svg>
               MeetAndGo
