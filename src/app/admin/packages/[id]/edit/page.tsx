@@ -380,6 +380,13 @@ export default function EditPackagePage() {
               />
               <Input label="Location" required value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} placeholder="e.g., Bali, Indonesia" />
             </div>
+            <Input
+              label="Thumbnail URL"
+              value={form.thumbnail}
+              onChange={(e) => setForm({ ...form, thumbnail: e.target.value })}
+              placeholder="https://example.com/image.jpg"
+              hint="Paste an image URL (e.g., from Unsplash, Cloudinary)"
+            />
             <div className="grid md:grid-cols-2 gap-4">
               <Input label="Duration Text" required value={form.duration} onChange={e => setForm({ ...form, duration: e.target.value })} placeholder="e.g., 3 Days 2 Nights" />
               <Input
