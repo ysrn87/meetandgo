@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
+import { FaTiktok, FaWhatsapp } from 'react-icons/fa';
 
 export function Footer() {
   return (
@@ -20,11 +21,14 @@ export function Footer() {
               From open trips to private tours, we make your journey unforgettable.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">
+              <a href="https://www.tiktok.com/@meetandgo" className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">
+                <FaTiktok className="w-5 h-5" />
+              </a>
+              <a href="https://www.instagram.com/meetandgo.pim/" className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">
-                <Facebook className="w-5 h-5" />
+              <a href="http://wa.me/6281236777781" className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">
+                <FaWhatsapp className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -54,11 +58,11 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm">
                 <MapPin className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                <span>Jl. Sudirman No. 123, Jakarta Pusat, Indonesia</span>
+                <span>Jl. Wijaya Kusuma, Sekarpuro Residence, Sekaran, Sekarpuro, Kec. Pakis, Kabupaten Malang, Jawa Timur, Indonesia 65154</span>
               </li>
               <li className="flex items-center gap-3 text-sm">
                 <Phone className="w-5 h-5 text-emerald-500 shrink-0" />
-                <a href="tel:+6281234567890" className="hover:text-emerald-400 transition-colors">+62 812-3456-7890</a>
+                <a href="tel:+6281234567890" className="hover:text-emerald-400 transition-colors">+62 812 36 7777 81</a>
               </li>
               <li className="flex items-center gap-3 text-sm">
                 <Mail className="w-5 h-5 text-emerald-500 shrink-0" />
