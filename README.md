@@ -86,9 +86,8 @@ Visit [http://localhost:3000](http://localhost:3000)
 ### Default Login Credentials
 
 After seeding:
-- **Admin**: admin@meetandgo.id / Admin123!
-- **Tour Guide**: guide@meetandgo.id / Guide123!
-- **Customer**: customer@example.com / Customer123!
+- **Admin**: admin@meetandgo.id / Admin123
+- **Customer**: customer@example.com / Customer123
 
 ## Project Structure
 
