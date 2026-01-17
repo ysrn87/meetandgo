@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     }
 
     const transactionDetails = {
-      order_id: `MNG-${booking.bookingCode}-${Date.now()}`,
+      order_id: `MNG-${booking.bookingCode}`,
       gross_amount: Number(booking.totalAmount),
     };
 

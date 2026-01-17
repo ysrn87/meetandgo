@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button, Card, CardHeader, CardTitle, CardContent, Alert } from "@/components/ui";
-import { CreditCard, MessageCircle, Copy, Check, ExternalLink } from "lucide-react";
+import { CreditCard, MessageCircle, Copy, Check, ExternalLink, RefreshCw } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
 interface PaymentOptionsProps {
@@ -30,7 +31,9 @@ export function PaymentOptions({
   packageTitle,
   whatsappNumber = WHATSAPP_NUMBER,
 }: PaymentOptionsProps) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [checkingStatus, setCheckingStatus] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState<string | null>(null);
   const [selectedMethod, setSelectedMethod] = useState<"gateway" | "manual" | null>(null);
@@ -57,6 +60,37 @@ export function PaymentOptions({
       setError(err instanceof Error ? err.message : "Payment failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const checkPaymentStatus = async () => {
+    setCheckingStatus(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/payments/status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookingId }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to check status");
+      }
+
+      const data = await res.json();
+      
+      if (data.status === "PAYMENT_RECEIVED") {
+        // Refresh the page to show updated status
+        router.refresh();
+      } else {
+        setError("Payment not yet confirmed. Please wait a moment and try again.");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to check status");
+    } finally {
+      setCheckingStatus(false);
     }
   };
 
@@ -149,6 +183,18 @@ Mohon diproses. Terima kasih!`;
               Bayar Sekarang
               <ExternalLink className="w-4 h-4" />
             </Button>
+            
+            {/* Check Payment Status Button */}
+            <Button 
+              onClick={checkPaymentStatus} 
+              loading={checkingStatus} 
+              variant="outline" 
+              className="w-full"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Sudah Bayar? Cek Status
+            </Button>
+            
             <button
               onClick={() => setSelectedMethod(null)}
               className="w-full text-sm text-slate-500 hover:text-slate-700"
@@ -201,7 +247,11 @@ Mohon diproses. Terima kasih!`;
               </p>
             </div>
 
-            <Button onClick={handleWhatsAppConfirm} variant="outline" className="w-full bg-green-50 border-green-500 text-green-700 hover:bg-green-100">
+            <Button 
+              onClick={handleWhatsAppConfirm} 
+              variant="outline" 
+              className="w-full bg-green-50 border-green-500 text-green-700 hover:bg-green-100"
+            >
               <MessageCircle className="w-4 h-4" />
               Konfirmasi via WhatsApp
             </Button>
