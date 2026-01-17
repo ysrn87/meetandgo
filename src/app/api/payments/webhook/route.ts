@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import crypto from "crypto";
+import type { BookingStatus } from "@prisma/client";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+
     console.log("Midtrans webhook received:", JSON.stringify(body, null, 2));
 
     const {
@@ -15,7 +16,6 @@ export async function POST(request: Request) {
       signature_key,
       transaction_status,
       fraud_status,
-      payment_type,
     } = body;
 
     // Verify signature
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
     }
 
-    // Extract booking code (format: MNG-{code}-{timestamp} or MNG-{code})
+    // Extract booking code (format: MNG-{code})
     const parts = order_id.split("-");
     const bookingCode = parts[1];
 
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
     console.log("Current booking status:", booking.status);
     console.log("Midtrans transaction status:", transaction_status);
 
-    let newStatus = booking.status;
+    let newStatus: BookingStatus = booking.status;
 
     // Determine new status based on Midtrans transaction status
     if (transaction_status === "capture" || transaction_status === "settlement") {
@@ -56,7 +56,6 @@ export async function POST(request: Request) {
         newStatus = "PAYMENT_RECEIVED";
       }
     } else if (transaction_status === "pending") {
-      // Keep as pending
       newStatus = "PENDING";
     } else if (
       transaction_status === "deny" ||
@@ -64,7 +63,7 @@ export async function POST(request: Request) {
       transaction_status === "cancel"
     ) {
       newStatus = "CANCELLED";
-      
+
       // Release group if private trip
       if (booking.departureGroupId) {
         await prisma.departureGroup.update({
@@ -95,7 +94,7 @@ export async function POST(request: Request) {
   }
 }
 
-// Midtrans might send GET request to verify endpoint
+// Midtrans sends GET request to verify endpoint exists
 export async function GET() {
   return NextResponse.json({ status: "Webhook endpoint active" });
 }
