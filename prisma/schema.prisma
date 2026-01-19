@@ -318,6 +318,7 @@ model Participant {
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   bookings      BookingParticipant[]
 
+  @@unique([userId, idNumber])  // Prevents duplicate ID per user
   @@index([userId])
   @@index([fullName])
 }
