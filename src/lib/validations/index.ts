@@ -6,12 +6,12 @@ import { z } from "zod";
 
 // Supported country codes
 export const COUNTRY_CODES = [
-  { code: "+62", country: "Indonesia", minLength: 9, maxLength: 12 },
-  { code: "+60", country: "Malaysia", minLength: 9, maxLength: 10 },
-  { code: "+65", country: "Singapore", minLength: 8, maxLength: 8 },
-  { code: "+66", country: "Thailand", minLength: 9, maxLength: 9 },
-  { code: "+63", country: "Philippines", minLength: 10, maxLength: 10 },
-] as const;
+  { code: "+62", country: "ID", minLength: 7, maxLength: 15 },
+  { code: "+60", country: "MY", minLength: 9, maxLength: 15 },
+  { code: "+63", country: "PH", minLength: 8, maxLength: 10 },
+  { code: "+65", country: "SG", minLength: 8, maxLength: 8 },
+  { code: "+66", country: "TH", minLength: 9, maxLength: 9 },
+  ] as const;
 
 export const DEFAULT_COUNTRY_CODE = "+62";
 
